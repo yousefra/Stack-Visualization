@@ -1,0 +1,133 @@
+$whiteColor: #F5F6FA;
+$headerColor: #2F3640;
+$bgColor: #353B48;
+$stackColor: #E1B12C;
+$buttonColor: #487EB0;
+$buttonHoverColor: #40739e;
+
+@mixin sendToBottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI';
+  background-color: $bgColor;
+  overflow: hidden;
+}
+
+header.main-header {
+  background-color: $headerColor;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    margin: 0;
+    padding: 0;
+    color: $whiteColor;
+  }
+}
+
+.container {
+  position: relative;
+  height: calc(90% - 80px);
+  top: 5%;
+  bottom: 5%;
+  width: 86%;
+  left: 7%;
+  right: 7%;
+  // background-color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 120px;
+  height: 100%;
+
+  .grid-col {
+    min-height: 100%;
+  }
+}
+
+.stack-container {
+  @include sendToBottom();
+  
+  .stack-holder {
+    border: 20px solid #fff; 
+    border-top: 0;
+    overflow: auto;
+    height: 90%;
+
+    .stack-items {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      padding: 15px;
+      overflow: auto;
+
+      .stack-item {
+        background-color: $stackColor;
+        width: 100%;
+        height: 80px;
+        margin-top: 20px; 
+        
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.output {
+  display: flex;
+  align-items: center;
+  
+  .output-box {
+    border: 3px dashed $whiteColor;
+    width: 100%;
+    height: 80px;
+  }
+}
+
+.operations {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .buttons {
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $buttonColor;
+      height: 74px;
+      width: 370px;
+      font-size: 25px;
+      font-weight: bold;
+      color: $whiteColor;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: $buttonHoverColor;
+      }
+    }
+  }
+}
