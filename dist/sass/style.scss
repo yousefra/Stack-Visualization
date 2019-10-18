@@ -4,11 +4,20 @@ $bgColor: #353B48;
 $stackColor: #E1B12C;
 $buttonColor: #487EB0;
 $buttonHoverColor: #40739e;
+$disabledButtonColor: #355b7e;
+$outputColor: #273c75;
+$animationSpeed: 0.5s;
 
 @mixin sendToBottom {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+@mixin centerFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 * {
@@ -25,12 +34,11 @@ html, body {
 }
 
 header.main-header {
+  @include centerFlex();
+  
   background-color: $headerColor;
   height: 80px;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   h1 {
     margin: 0;
@@ -78,12 +86,23 @@ header.main-header {
       height: 100%;
       padding: 15px;
       overflow: auto;
+      transition: $animationSpeed;
 
       .stack-item {
+        @include centerFlex();
+
+        position: relative;
         background-color: $stackColor;
         width: 100%;
         height: 80px;
-        margin-top: 20px; 
+        color: $whiteColor;
+        font-weight: bold;
+        font-size: 25px;
+        margin-top: 20px;
+
+        transition: $animationSpeed;
+        animation-name: push;
+        animation-duration: $animationSpeed;
         
         &:first-child {
           margin-top: 0;
@@ -93,28 +112,33 @@ header.main-header {
   }
 }
 
-.output {
-  display: flex;
-  align-items: center;
+.output-container {
+  @include centerFlex();
   
   .output-box {
-    border: 3px dashed $whiteColor;
+    border: 1px dashed $whiteColor;
     width: 100%;
     height: 80px;
+
+    .output {
+      display: none;
+      background-color: $outputColor;
+      height: 100%;
+      animation-name: sl;
+      animation: name duration timing-function delay iteration-count direction fill-mode;
+    }
   }
 }
 
 .operations {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include centerFlex();
 
   .buttons {
 
     .button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include centerFlex();
+
+      border: 0;
       background-color: $buttonColor;
       height: 74px;
       width: 370px;
@@ -123,11 +147,51 @@ header.main-header {
       color: $whiteColor;
       margin-top: 20px;
       cursor: pointer;
-      transition: 0.3s;
+      user-select: none;
+      outline: none;
+      transition: $animationSpeed;
 
       &:hover {
         background-color: $buttonHoverColor;
       }
+
+      &:active {
+        transform: translateY(7px);
+      }
+
+      &:disabled {
+        background-color: $disabledButtonColor;
+        cursor: not-allowed;
+      }
     }
   }
+}
+
+.popAnimation {
+  opacity: 0;
+  transform: translateY(-80px);
+}
+
+.stack-items--remove .stack-item {
+  opacity: 0;
+  transform: translateY(-200px);
+}
+
+@keyframes push {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.moveUp {
+  transform: translateY(-100px);
+}
+
+.moveDown {
+  transform: translateY(100px);
 }
